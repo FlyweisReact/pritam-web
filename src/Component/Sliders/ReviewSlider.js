@@ -102,6 +102,93 @@ const ReviewSlider = () => {
               </SwiperSlide>
             );
           })}
+          <SwiperSlide>
+            <div className="client-slider-card">
+              <img
+                src="https://static-00.iconduck.com/assets.00/webflow-icon-2048x515-obs12sby.png"
+                alt=""
+                style={{ width: "100px", marginTop: "10px" }}
+              />
+              <p className="client-slider-para">
+                I've been working with this agency for years, and I can't stress
+                enough how stress-free the staffing and requirement process has
+                been. They consistently provide top-quality staff members, which
+                has made a world of difference for our organization. I can't
+                recommend them enough!
+              </p>
+              <div className="client-slider-image-container">
+                <img
+                  src={
+                    "https://res.cloudinary.com/dbrvq9uxa/image/upload/v1689759728/images/image/veznhp2pmpqddpqtlaeu.jpg"
+                  }
+                  className="client-slider-image"
+                  alt=""
+                ></img>
+                <div className="user-info-div">
+                  <h3>John D</h3>
+                  <p>Client</p>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="client-slider-card">
+              <img
+                src="https://static-00.iconduck.com/assets.00/webflow-icon-2048x515-obs12sby.png"
+                alt=""
+                style={{ width: "100px", marginTop: "10px" }}
+              />
+              <p className="client-slider-para">
+                Dealing with staffing and requirement needs used to be such a
+                hassle until we partnered with this agency. Their process is a
+                breeze, and the quality of staff they send our way is always
+                top-notch. It's like they read our minds when it comes to
+                finding the right people for our team
+              </p>
+              <div className="client-slider-image-container">
+                <img
+                  src={
+                    "https://res.cloudinary.com/dbrvq9uxa/image/upload/v1689759728/images/image/veznhp2pmpqddpqtlaeu.jpg"
+                  }
+                  className="client-slider-image"
+                  alt=""
+                ></img>
+                <div className="user-info-div">
+                  <h3>Sarah M</h3>
+                  <p>Client</p>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="client-slider-card">
+              <img
+                src="https://static-00.iconduck.com/assets.00/webflow-icon-2048x515-obs12sby.png"
+                alt=""
+                style={{ width: "100px", marginTop: "10px" }}
+              />
+              <p className="client-slider-para">
+                Quality and convenience are the two words that come to mind when
+                I think of this staffing agency. Their commitment to maintaining
+                the highest standards in staff selection is truly remarkable.
+                Working with them has made our recruitment process tension-free,
+                and our team has never been stronger.
+              </p>
+              <div className="client-slider-image-container">
+                <img
+                  src={
+                    "https://res.cloudinary.com/dbrvq9uxa/image/upload/v1689759728/images/image/veznhp2pmpqddpqtlaeu.jpg"
+                  }
+                  className="client-slider-image"
+                  alt=""
+                ></img>
+                <div className="user-info-div">
+                  <h3>David P</h3>
+                  <p>Client</p>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
         </Swipe>
       )}
     </div>
