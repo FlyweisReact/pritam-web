@@ -73,7 +73,7 @@ export default function StaffSlider() {
           pagination={false}
           allowTouchMove={true}
         >
-          {reviews?.map((item, index) => {
+          {/* {reviews?.map((item, index) => {
             return (
               <SwiperSlide key={index}>
                 <div className="staff-slider-card">
@@ -99,7 +99,7 @@ export default function StaffSlider() {
                 </div>
               </SwiperSlide>
             );
-          })}
+          })} */}
 
           <SwiperSlide>
             <div className="staff-slider-card">

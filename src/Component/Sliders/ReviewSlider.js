@@ -75,7 +75,7 @@ const ReviewSlider = () => {
           pagination={false}
           allowTouchMove={true}
         >
-          {reviews?.map((item, index) => {
+          {/* {reviews?.map((item, index) => {
             return (
               <SwiperSlide key={index}>
                 <div className="client-slider-card">
@@ -101,7 +101,7 @@ const ReviewSlider = () => {
                 </div>
               </SwiperSlide>
             );
-          })}
+          })} */}
           <SwiperSlide>
             <div className="client-slider-card">
               <img
