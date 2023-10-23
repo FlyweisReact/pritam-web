@@ -24,7 +24,7 @@ const DownBanner = ({ setshow }) => {
       <div className="AddScreeen">
         <i className="fa-solid fa-close" onClick={() => setshow(false)} />
         <img src={data?.image} alt="" />
-        {/* <p>{data?.title}</p> */}
+        <p>{data?.title}</p>
         <p> {textOver(data?.title)} </p>
 
         <Link to={`/ads/${data?._id}`}>

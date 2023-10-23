@@ -48,7 +48,7 @@ const AdScreen = () => {
         className="Banner AboutUs addd"
         style={{ backgroundImage: `url(${data?.banner})` }}
       >
-        <div className="content" style={{ width: "80%", margin: "auto" }}>
+        <div className="content" style={{ width: "100%", margin: "auto" }}>
           {/* <h2
             className="permanent-job-heading"
             style={{
@@ -62,7 +62,7 @@ const AdScreen = () => {
             {data?.title}
           </h2> */}
 
-          <p style={{ color: "#fff", fontSize: "16px" }}>{data?.title}</p>
+          <p>{data?.title}</p>
         </div>
       </div>
 
@@ -74,17 +74,16 @@ const AdScreen = () => {
         ))}
       </div>
 
-      {data?.images?.[0] && (
-        <div className="About_Us-two_Sec">
-          <div className="left">
-            <img src={data?.images?.[0]} style={{ maxWidth: "400px" }} alt="" />
-          </div>
-          <div className="right">
-            <p>{data?.desc?.reverse()?.[0]}</p>
-            <p>{data?.desc?.reverse()?.[1]}</p>
-          </div>
+      <div className="About_Us-two_Sec">
+        <div className="left">
+          <img src={data?.images?.[0]} style={{ maxWidth: "400px" }} alt="" />
         </div>
-      )}
+        <div className="right">
+          {data?.desc?.map((i, index) => (
+            <p key={index}> {i} </p>
+          ))}
+        </div>
+      </div>
 
       <div style={{ width: "90%", margin: "40px auto" }}>
         <iframe

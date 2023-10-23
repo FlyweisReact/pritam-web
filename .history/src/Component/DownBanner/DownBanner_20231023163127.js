@@ -11,21 +11,17 @@ const DownBanner = ({ setshow }) => {
     getFooterAds(setData);
   }, []);
 
-  const textOver = (data) => {
-    if (data?.length > 100) {
-      return `${data?.substr(0, 100)} ...`;
-    } else {
-      return data;
-    }
-  };
+
+  const textOver = () => {
+    
+  }
 
   return data ? (
     <div className="AddScreeenBg">
       <div className="AddScreeen">
         <i className="fa-solid fa-close" onClick={() => setshow(false)} />
         <img src={data?.image} alt="" />
-        {/* <p>{data?.title}</p> */}
-        <p> {textOver(data?.title)} </p>
+        <p>{data?.title}</p>
 
         <Link to={`/ads/${data?._id}`}>
           <button>VIEW DETAILS</button>
