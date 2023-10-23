@@ -121,7 +121,7 @@
 
   .Banner {
     min-height: 400px;
-    max-height: 700px;
+    /* max-height: 700px; */
   }
   .Banner h2 {
     font-size: 30px;

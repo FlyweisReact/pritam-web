@@ -45,26 +45,23 @@ const AdScreen = () => {
   return (
     <>
       <div
-        className="Banner AboutUs addd"
-        style={{ backgroundImage: `url(${data?.banner})` }}
+        className="Banner AboutUs"
+        style={{
+          backgroundImage: `url(${data?.banner})`,
+          margin: 0,
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        <div className="content" style={{ width: "80%", margin: "auto" }}>
-          {/* <h2
-            className="permanent-job-heading"
-            style={{
-              lineHeight: "normal",
-              maxWidth: "600px",
-              textAlign: "center",
-              display: "block",
-              margin: "auto",
-            }}
-          >
-            {data?.title}
-          </h2> */}
-
-          <p style={{ color: "#fff", fontSize: "16px" }}>{data?.title}</p>
+        <div
+          className="aboutus-info-container"
+          style={{ width: "80%", margin: "auto" }}
+        >
+          <p style={{ color: "#fff", fontSize: "16px" }}> {data?.title} </p>
         </div>
       </div>
+
+     
 
       <h1 className="bold-heading">OUR NEW APP</h1>
 

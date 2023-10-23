@@ -1,175 +1,227 @@
-/** @format */
+  /** @format */
 
-import { Link, useNavigate } from "react-router-dom";
-import { FaSearchengin } from "react-icons/fa";
-import { AiOutlineStar } from "react-icons/ai";
-import { BsLaptop } from "react-icons/bs";
-import { BiDrink } from "react-icons/bi";
-import { IoMdClose } from "react-icons/io";
-import { StoreContext } from "../../store/store-context";
-import { useContext, useState } from "react";
-import { HIDE_MOBILE_SIDEBAR } from "../../store/action";
-import FindworkOver from "../linkcomponent/FindworkOver";
-import FindTalentedOver from "../linkcomponent/FindTalentedOver";
-import FreelancingOver from "../linkcomponent/FreelancingOver";
-import BartendingOver from "../linkcomponent/BartendingOver";
-import { RxHamburgerMenu } from "react-icons/rx";
+  import { Link, useNavigate } from "react-router-dom";
+  import { FaSearchengin } from "react-icons/fa";
+  import { AiOutlineStar } from "react-icons/ai";
+  import { BsLaptop } from "react-icons/bs";
+  import { BiDrink } from "react-icons/bi";
+  import { StoreContext } from "../../store/store-context";
+  import { useContext, useState } from "react";
+  import { HIDE_MOBILE_SIDEBAR } from "../../store/action";
+  import FindworkOver from "../linkcomponent/FindworkOver";
+  import FindTalentedOver from "../linkcomponent/FindTalentedOver";
+  import FreelancingOver from "../linkcomponent/FreelancingOver";
+  import BartendingOver from "../linkcomponent/BartendingOver";
+  import { RxHamburgerMenu } from "react-icons/rx";
+  import axios from "axios";
+  import { useEffect } from "react";
+  import { IoMdClose } from "react-icons/io";
 
-export default function MobileSideBar() {
-  const [state, dispatch] = useContext(StoreContext);
-  const [showWork, setShowWork] = useState(false);
-  const [showWork1, setShowWork1] = useState(false);
-  const [showWork2, setShowWork2] = useState(false);
-  const [showWork3, setShowWork3] = useState(false);
-  const [show, setShow] = useState(false);
+  export default function MobileSideBar() {
+    const [state, dispatch] = useContext(StoreContext);
+    const [show, setShow] = useState(false);
+    const [showWork, setShowWork] = useState(false);
+    const [showWork1, setShowWork1] = useState(false);
+    const [showWork2, setShowWork2] = useState(false);
+    const [showWork3, setShowWork3] = useState(false);
+    const [allPagesDesc, setAllPageDesc] = useState([]);
+    const [talent, setTalent] = useState({});
+    const [work, setWork] = useState({});
+    const [Freelancing, setFreelancing] = useState({});
+    const [schoolForBartending, setSchoolForBartending] = useState({});
+    const [logo, setLogo] = useState();
+    const fetchLogo = async () => {
+      const data = await axios.get(
+        "https://pritam-backend.vercel.app/api/v1/admin/viewContactDetails"
+      );
+      setLogo(data.data.data);
+    };
+    const fetchAllPageContent = async () => {
+      try {
+        const response = await axios.get(
+          `https://pritam-backend.vercel.app/api/v1/admin/page/getPageTitledescription`
+        );
+        const data = response.data;
+        setAllPageDesc(data.data);
+        data.data.map((item) => {
+          if (item.page == "FIND TALENT") {
+            setTalent(item);
+          } else if (item.page == "FIND WORK") {
+            setWork(item);
+          } else if (item.page == "FREELANCING") {
+            setFreelancing(item);
+          } else if (item.page == "SCHOOL FOR BARTENDING") {
+            setSchoolForBartending(item);
+          }
+        });
+      } catch (error) {}
+    };
+    useEffect(() => {
+      fetchAllPageContent();
+      fetchLogo();
+    }, []);
 
-  const closeSidebar = () => {
-    dispatch({
-      type: HIDE_MOBILE_SIDEBAR,
-    });
-  };
+    const closeSidebar = () => {
+      dispatch({
+        type: HIDE_MOBILE_SIDEBAR,
+      });
+    };
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  function NavHandler(link) {
-    setShowWork(false);
-    setShowWork1(false);
-    setShowWork2(false);
-    setShowWork3(false);
-    navigate(link);
-    setShow(false);
-    closeSidebar();
-  }
-
-  function OpenMenu() {
-    setShowWork(false);
-    setShowWork1(false);
-    setShowWork2(false);
-    setShowWork3(false);
-    setShow(!show);
-  }
-
-  return (
-    <div className="mobile-sidebar-container">
-      <div className="logoContainer">
-        <Link to="/">
-          <img src="/Image/9.png" alt="logo" />
-        </Link>
-        <IoMdClose className="icons" onClick={closeSidebar} />
-      </div>
-
-      <RxHamburgerMenu className="icons ham_menu" onClick={() => OpenMenu()} />
-
-      {show ? (
-        <div
-          className="Ham_Menu"
-          style={{
-            position: "absolute",
-            top: "2%",
-            zIndex: 200,
-            background: "#f5a302",
-            width: "90%",
-            marginLeft: "5%",
-            height: "420px",
-          }}
-        >
-          <div className="close_button">
-            <i className="fa-solid fa-x" onClick={() => setShow(false)}></i>
+    return (
+      <div className="mobile-sidebar-container">
+        <div className="logoContainer">
+          <div
+            style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
+          >
+            <IoMdClose className="icons" onClick={closeSidebar} />
           </div>
-          <ul>
-            <li style={{ paddingTop: "30px" }} onClick={() => NavHandler("/")}>
-              HOME
-            </li>
-            <li
-              style={{ paddingTop: "30px" }}
-              onClick={() => NavHandler("/event-booking")}
+          <Link to="/">
+            <img src={logo?.image} alt="logo" />
+          </Link>
+
+          <RxHamburgerMenu
+            className="icons"
+            onClick={() => {
+              setShowWork(false);
+              setShowWork1(false);
+              setShowWork2(false);
+              setShowWork3(false);
+              setShow(true);
+            }}
+          />
+
+          {show ? (
+            <div
+              className="Ham_Menu"
+              style={{
+                position: "absolute",
+                bottom: "-320px",
+                zIndex: 200,
+                background: "#f5a302",
+                width: "80%",
+                left: "10%",
+                height: "420px",
+              }}
             >
-              EVENT BOOKING
-            </li>
-            <li
-              style={{ paddingTop: "30px" }}
-              onClick={() => NavHandler("/bartending")}
-            >
-              COURSES
-            </li>
-            <li
-              style={{ paddingTop: "30px" }}
-              onClick={() => NavHandler("/about-us")}
-            >
-              ABOUT US
-            </li>
-            <li
-              style={{ paddingTop: "30px" }}
-              onClick={() => NavHandler("/contact-us")}
-            >
-              CONTACT US
-            </li>
-          </ul>
+              <div className="close_button">
+                <img
+                  src="/Image/Mask group.png"
+                  onClick={() => setShow(false)}
+                  alt=""
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <ul>
+                <li
+                  style={{ paddingTop: "30px" }}
+                  onClick={() => {
+                    navigate("/");
+                    setShow(false);
+                  }}
+                >
+                  HOME
+                </li>
+                <li
+                  style={{ paddingTop: "30px" }}
+                  onClick={() => {
+                    navigate("/event-booking");
+                    setShow(false);
+                  }}
+                >
+                  EVENT BOOKING
+                </li>
+                <li
+                  style={{ paddingTop: "30px" }}
+                  onClick={() => {
+                    navigate("/bartending");
+                    setShow(false);
+                  }}
+                >
+                  COURSES
+                </li>
+                <li
+                  style={{ paddingTop: "30px" }}
+                  onClick={() => {
+                    navigate("/about-us");
+                    setShow(false);
+                  }}
+                >
+                  ABOUT US
+                </li>
+                <li
+                  style={{ paddingTop: "30px" }}
+                  onClick={() => {
+                    navigate("/contact-us");
+                    setShow(false);
+                  }}
+                >
+                  CONTACT US
+                </li>
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
-      ) : (
-        ""
-      )}
 
-      <div
-        className="para-div"
-        style={{ position: "relative", minHeight: "450px" }}
-      >
-        <p className="hoverLinkStyles" onClick={() => setShowWork(true)}>
-          <FaSearchengin className="smallIcons" />
-          Find Work
-        </p>
+        <div
+          className="para-div"
+          style={{ position: "relative", minHeight: "400px" }}
+        >
+          <p className="hoverLinkStyles" onClick={() => setShowWork(true)}>
+            <FaSearchengin className="smallIcons" />
+            Work With us
+          </p>
 
-        {showWork === true ? (
-          <FindworkOver
-            onHide={() => setShowWork(false)}
-            closeSidebar={closeSidebar}
-          />
-        ) : (
-          ""
-        )}
+          {showWork === true ? (
+            <FindworkOver onHide={() => setShowWork(false)} pagedesc={work} />
+          ) : (
+            ""
+          )}
 
-        <p className="hoverLinkStyles" onClick={() => setShowWork1(true)}>
-          <AiOutlineStar className="smallIcons" />
-          Find Talented
-        </p>
+          <p className="hoverLinkStyles" onClick={() => setShowWork1(true)}>
+            <AiOutlineStar className="smallIcons" />
+            Find Talented staff
+          </p>
 
-        {showWork1 ? (
-          <FindTalentedOver
-            onHide={() => setShowWork1(false)}
-            closeSidebar={closeSidebar}
-          />
-        ) : (
-          ""
-        )}
+          {showWork1 ? (
+            <FindTalentedOver
+              onHide={() => setShowWork1(false)}
+              pagedesc={talent}
+            />
+          ) : (
+            ""
+          )}
+          <p className="hoverLinkStyles" onClick={() => setShowWork2(true)}>
+            <BsLaptop className="smallIcons" />
+            Freelancing with Us
+          </p>
 
-        <p className="hoverLinkStyles" onClick={() => setShowWork2(true)}>
-          <BsLaptop className="smallIcons" />
-          Freelancing
-        </p>
+          {showWork2 ? (
+            <FreelancingOver
+              onHide={() => setShowWork2(false)}
+              pagedesc={Freelancing}
+            />
+          ) : (
+            ""
+          )}
 
-        {showWork2 ? (
-          <FreelancingOver
-            onHide={() => setShowWork2(false)}
-            closeSidebar={closeSidebar}
-          />
-        ) : (
-          ""
-        )}
+          <p className="hoverLinkStyles" onClick={() => setShowWork3(true)}>
+            <BiDrink className="smallIcons" />
+            Join Our Bartending Institute
+          </p>
 
-        <p className="hoverLinkStyles" onClick={() => setShowWork3(true)}>
-          <BiDrink className="smallIcons" />
-          School for Bartending
-        </p>
-
-        {showWork3 ? (
-          <BartendingOver
-            onHide={() => setShowWork3(false)}
-            closeSidebar={closeSidebar}
-          />
-        ) : (
-          ""
-        )}
+          {showWork3 ? (
+            <BartendingOver
+              onHide={() => setShowWork3(false)}
+              pagedesc={schoolForBartending}
+            />
+          ) : (
+            ""
+          )}
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
