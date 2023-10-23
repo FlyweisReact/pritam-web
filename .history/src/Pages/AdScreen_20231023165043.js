@@ -57,7 +57,7 @@ const AdScreen = () => {
           className="aboutus-info-container"
           style={{ width: "80%", margin: "auto" }}
         >
-          <p style={{ color: "#fff", fontSize: "16px" }}> {data?.description} </p>
+          <p style={{ color: "#fff", fontSize: "16px" }}> {data?.title} </p>
         </div>
       </div>
 
