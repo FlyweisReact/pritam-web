@@ -411,6 +411,15 @@ export const AllTalentedStaffType = async (setResponse) => {
 };
 
 
+export const getSkills = async (setResponse) => {
+  try{
+    const res = await axios.get(`${Baseurl}api/v1/course/Skill/all`)
+    const data = res.data.data
+    setResponse(data)
+  }catch{}
+}
+
+
 
 export {
   getWhoWeAre,

@@ -6,6 +6,7 @@ import {
   eventEnquiry,
   getBannerType,
   getCourse,
+  getSkills,
   get_privacy,
   get_terms,
 } from "../Repo/Api";
@@ -30,12 +31,14 @@ export default function Bartending() {
   const [data, setData] = useState({});
   const [bartendingData, setbartendingData] = useState({});
   const [youtubeUpdatedLink, setUpdatedLink] = useState("");
+  const [skills, setSkills] = useState([]);
   const tillDate = lastDate === null ? "" : `${lastDate}T23:59:59.000Z`;
 
   function handleDateChange(e) {
     const formattedDate = e.toISOString().split("T")[0];
     setLastDate(formattedDate);
   }
+
   const fetchBartendingData = async () => {
     try {
       const response = await axios.get(
@@ -52,6 +55,7 @@ export default function Bartending() {
       }
     } catch (error) {}
   };
+
   function getVideoIdFromUrl(url) {
     const regExp = /v=([a-zA-Z0-9_-]+)/;
     const match = url.match(regExp);
@@ -104,9 +108,16 @@ export default function Bartending() {
     getBannerType("Bartending", setData);
   }, []);
 
-  const filterData = response?.reverse()?.slice(0, 3);
+  const filterData = response?.reverse();
 
-  console.log(response);
+  // Get Skills
+  function getSkill() {
+    getSkills(setSkills);
+  }
+
+  useEffect(() => {
+    getSkill();
+  }, []);
 
   return (
     <div>
@@ -127,7 +138,7 @@ export default function Bartending() {
         )}
 
         <div className="bartending-collapse-div">
-          {response?.map((i, index) => (
+          {skills?.map((i, index) => (
             <div className="Item" key={index}>
               <p className="bartending-collapse-item" tabIndex={0}>
                 {i.title}

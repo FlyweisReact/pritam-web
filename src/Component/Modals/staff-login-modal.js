@@ -112,7 +112,6 @@ export function StaffLoginModal(props) {
               </p>
               <input
                 type="tel"
-                pattern="[0-9]{10}"
                 required
                 name="phone"
                 onChange={(e) => setPhone(e.target.value)}
@@ -136,7 +135,7 @@ export function StaffLoginModal(props) {
             </div>
           </div>
 
-          <div className="single-input">
+          {/* <div className="single-input">
             <div className="item">
               <p>
                 {" "}
@@ -147,7 +146,7 @@ export function StaffLoginModal(props) {
                 <option value=""></option>
               </select>
             </div>
-          </div>
+          </div> */}
 
           <div className="single-input">
             <div className="item">

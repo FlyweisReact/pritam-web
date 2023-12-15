@@ -112,7 +112,6 @@ export default function SignUpModal(props) {
               </p>
               <input
                 type="tel"
-                pattern="[0-9]{10}"
                 required
                 name="phone"
                 onChange={(e) => setPhone(e.target.value)}

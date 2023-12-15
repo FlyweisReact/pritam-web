@@ -9,7 +9,7 @@ const ContactUs = () => {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    getBannerType("	Contact Us", setData);
+    getBannerType("Contact Us", setData);
   }, []);
 
   useEffect(() => {

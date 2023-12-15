@@ -27,7 +27,7 @@ const OverflowingContent = () => {
     fetchHandler();
     getContactDetails();
   }, []);
-  
+
   console.log("response", contactData);
   return (
     <div className="contact-us-overflow-main contact-us-overflow-main-2 ">
@@ -64,21 +64,21 @@ const OverflowingContent = () => {
             style={{ justifyContent: "center" }}
             key={index}
           >
-            <div className="Item">
+            <div className="Item" style={{ width: "350px" }}>
               <div className="Image-cont">
                 <img src={i.image} alt="" />
                 <p> {i.title} </p>
               </div>
 
-              <div className="three-sec" style={{ justifyContent: "center" }}>
+              <div className="three-sec">
                 <i className="fa-solid fa-phone" style={{ color: "#000" }} />
                 <p style={{ color: "#000" }}> {i.mobileNumber} </p>
               </div>
-              <div className="three-sec" style={{ justifyContent: "center" }}>
+              <div className="three-sec">
                 <i className="fa-solid fa-envelope" style={{ color: "#000" }} />
                 <p style={{ color: "#000" }}> {i.email} </p>
               </div>
-              <div className="three-sec" style={{ justifyContent: "center" }}>
+              <div className="three-sec">
                 <i
                   className="fa-solid fa-location-dot"
                   style={{ color: "#000" }}
