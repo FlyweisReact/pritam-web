@@ -262,7 +262,7 @@ const BookAnEvent = () => {
           ))}
         </div>
 
-        <div className="mt-5 Community_Page" id="communityId2">
+        <div className="mt-5 Community_Page" id="communityId">
           {" "}
           <FAQ type="EventHome" />
         </div>

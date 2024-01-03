@@ -60,10 +60,10 @@ export default function Footer() {
             <Link to="/about-us">About Us</Link>
             <Link to="/contact-us">Contact Us</Link>
             <HashLink to="/freelance#communityId">FAQ&#39;s</HashLink>
-            <HashLink to="/book-an-event/64b2a2b85ca7d30d3d269dc4#communityId2">
-              {" "}
-              Event FAQ&#39;s
-            </HashLink>
+            <HashLink to="//book-an-event/64b2a2b85ca7d30d3d269dc4#communityId2">FAQ&#39;s</HashLink>
+            <Link to="/book-an-event/64b2a2b85ca7d30d3d269dc4">
+            
+            </Link>
           </div>
           <div className="footer-links-div">
             <p>Follow Us</p>

@@ -7,8 +7,8 @@ import axios from "axios";
 
 const FAQ = ({ type }) => {
   const [faq, setFaq] = useState([]);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
     get_faq(setFaq);
   }, []);
   const getQuestionAndAns = async () => {

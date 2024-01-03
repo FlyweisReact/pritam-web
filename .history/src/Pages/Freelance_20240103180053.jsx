@@ -1,21 +1,15 @@
 /** @format */
 
-import React, { useState, useEffect, useContext } from "react";
-import Banner from "../Component/Partial/Book-An-Event/Banner";
+import React, { useEffect, useState } from "react";
+import Banner from "../Component/Partial/FreelanceComponent/Banner";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import FAQ from "../Component/Partial/Contact Us Components/FAQ";
-import { EventModal } from "../Component/Modals/event-modal";
-import { useParams } from "react-router-dom";
-import { eventEnquiry, get_sub_event } from "../Repo/Api";
+import { eventEnquiry, get_freelance } from "../Repo/Api";
 import axios from "axios";
 
-const BookAnEvent = () => {
-  const [modalShow, setModalShow] = useState(false);
-  const [img, setImg] = useState(null);
-  const [head, setHead] = useState(null);
-  const [descPoints, setDescPoints] = useState([]);
-  const { id } = useParams();
+const Freelance = () => {
+  const [freelance, setFreelance] = useState([]);
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [email, setEmail] = useState(null);
@@ -23,7 +17,8 @@ const BookAnEvent = () => {
   const [comment, setComment] = useState(null);
   const [date, setDate] = useState(null);
   const [slot, setSlot] = useState(null);
-  const [data, setData] = useState({});
+  const [formdata, setData] = useState([]);
+  const Baseurl = "https://pritam-backend.vercel.app/";
 
   const payload = {
     firstName,
@@ -33,7 +28,18 @@ const BookAnEvent = () => {
     comment,
     date,
     slot,
-    eventId: id,
+  };
+
+  const getFreeLancingFormData = async () => {
+    try {
+      const { data } = await axios.get(
+        `${Baseurl}api/v1/admin/Bartending/getFormfreelancing`
+      );
+      setData(data.data);
+      console.log(data.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -49,78 +55,35 @@ const BookAnEvent = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const [event, setEvent] = useState([]);
-
-  useEffect(() => {
-    get_sub_event(id, setEvent);
-  }, []);
-
-  const getForm = async () => {
-    try {
-      const res = await axios.get(
-        `https://pritam-backend.vercel.app/api/v1/admin/Bartending/getFormData/event`
-      );
-      setData(res.data.data);
-    } catch {}
-  };
-
-  useEffect(() => {
-    getForm();
+    get_freelance(setFreelance);
+    getFreeLancingFormData();
   }, []);
 
   return (
     <>
-      <EventModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        img={img}
-        head={head}
-        descPoints={descPoints}
-      />
+      <div className="Freelance">
+        <Banner />
+      </div>
 
-      <div className="Book-An-Event">
-        <Banner data={event?.[0]?.eventId} />
-        <div className="Find_work_contact_form">
-          <div className="left_container">
-            <div className="Three_Div2">
-              {event?.slice(0, 3).map((ele, i) => (
-                <>
-                  <div className="Item" key={i}>
-                    <div className="upper">
-                      <img className="upperImage" src={ele?.mainImage} alt="" />
-                      <p className="head">{ele?.title}</p>
-                    </div>
-                    <p
-                      style={{ fontFamily: "Plus Jakarta Sans" }}
-                      className="desc"
-                    >
-                      {ele?.desc}
-                    </p>
-
-                    <button
-                      onClick={() => {
-                        setImg(ele?.mainImage);
-                        setHead(ele?.title);
-                        setDescPoints(ele.descPoints);
-                        setModalShow(true);
-                      }}
-                    >
-                      Learn More
-                    </button>
-                  </div>
-                </>
-              ))}
-            </div>
+      <div className="Find_work_contact_form">
+        <div className="left_container" style={{ backgroundImage: "url()" }}>
+          <div className="Freelance_Perks_Section">
+            {freelance?.map((i, index) => (
+              <div className="Main" key={index}>
+                <p className="title"> {i?.title} </p>
+                <img src={i?.image} alt="" />
+                <p className="desc"> {i?.desc} </p>
+              </div>
+            ))}
           </div>
+        </div>
 
-          <div className="right_container">
+        <div className="right_container">
+          {formdata && (
             <div className="contact-query-form">
-              <h5 className="head"> {data?.contactUsformTitle} </h5>
+              <h5 className="head">{formdata?.contactUsformTitle} </h5>
               <p style={{ fontFamily: "Plus Jakarta Sans" }} className="desc">
-                {data?.contactUsformDesc}
+                {formdata?.contactUsformDesc}
               </p>
               <form onSubmit={handleSubmit}>
                 <div className="two-inputs">
@@ -185,7 +148,9 @@ const BookAnEvent = () => {
                   <p>
                     <span>*</span>Availibility to Call Back
                   </p>
-                  <p className="desc">{data?.contactUsformAvaili}</p>
+                  {formdata && (
+                    <p className="desc">{formdata?.contactUsformAvaili}</p>
+                  )}
                 </div>
 
                 <Calendar onChange={(e) => setDate(e)} value={date} />
@@ -216,8 +181,9 @@ const BookAnEvent = () => {
                 </div>
 
                 <p className="Privacy">
-                  {data?.contactUsformPrivacy}
-                  <span>View our Privacy Policy</span> .
+                  {formdata && (
+                    <p className="desc">{formdata?.contactUsformAvaili}</p>
+                  )}
                 </p>
 
                 <button className="submit-btn" type="submit">
@@ -225,64 +191,34 @@ const BookAnEvent = () => {
                 </button>
 
                 <p className="assistance">Need Assistance?</p>
-                <button className="Whatsapp_Button">
-                  <i className="fa-brands fa-whatsapp"></i>
-                  {data?.contactUsformWhatApp}
-                </button>
+                {formdata && (
+                  <button className="Whatsapp_Button">
+                    <i className="fa-brands fa-whatsapp"></i>{" "}
+                    {formdata?.contactUsformWhatApp}
+                  </button>
+                )}
 
                 <div className="contact_Detail">
                   <p>Or Call us at </p>
                   <i className="fa-solid fa-phone"></i>
-                  <p> {data?.contactUsformCall} </p>
+                  <p> {formdata?.contactUsformCall}</p>
                 </div>
               </form>
             </div>
-          </div>
-        </div>
-
-        <div className="book-event-container">
-          {event?.slice(3).map((i, index) => (
-            <div className="book-event-image-container" key={index}>
-              <div className="event-image">
-                <img src={i.mainImage} alt="" />
-                <p> {i.title} </p>
-              </div>
-              <p>{i.desc}</p>
-              <button
-                onClick={() => {
-                  setImg(i.mainImage);
-                  setHead(i.title);
-                  setDescPoints(i.descPoints);
-                  setModalShow(true);
-                }}
-              >
-                Learn More
-              </button>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-5 Community_Page" id="communityId2">
-          {" "}
-          <FAQ type="EventHome" />
-        </div>
-
-        <div style={{ width: "90%", margin: "40px auto" }}>
-          <iframe
-            width="100%"
-            height="500"
-            src="https://www.youtube.com/embed/JxZ9iqWVlSE?si=InTXwsXs3JbTwAMf&amp;start=3"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
+          )}
         </div>
       </div>
 
-      <div className="pt-5"></div>
+      <div style={{ height: "100px" }}></div>
+      <div
+        className="Community_Page"
+        id="communityId
+        style={{ marginBottom: "60px" }}
+      >
+        <FAQ />
+      </div>
     </>
   );
 };
 
-export default BookAnEvent;
+export default Freelance;

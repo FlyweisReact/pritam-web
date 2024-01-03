@@ -35,7 +35,7 @@ export default function SideBar() {
     );
     setLogo(data.data.data);
   };
-
+  
   const fetchAllPageContent = async () => {
     try {
       const response = await axios.get(
@@ -56,7 +56,6 @@ export default function SideBar() {
       });
     } catch (error) {}
   };
-  
   useEffect(() => {
     fetchAllPageContent();
     fetchLogo();

@@ -10,19 +10,21 @@ import { BsInstagram } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { get_contact_detail, getSocialLinks } from "../../Repo/Api";
 import axios from "axios";
-import { HashLink } from "react-router-hash-link";
+import { HashLink } from 'react-router-hash-link';
+
 
 export default function Footer() {
   const [detail, setDetail] = useState([]);
   const [response, setResponse] = useState({});
-  const [logo, setLogo] = useState();
-
-  const fetchLogo = async () => {
-    const data = await axios.get(
-      "https://pritam-backend.vercel.app/api/v1/admin/viewContactDetails"
-    );
-    setLogo(data.data.data);
-  };
+ const [logo, setLogo] = useState();
+ 
+ 
+ const fetchLogo = async () => {
+   const data  =await axios.get(
+     "https://pritam-backend.vercel.app/api/v1/admin/viewContactDetails"
+   );
+   setLogo(data.data.data);
+ };
   useEffect(() => {
     get_contact_detail(setDetail);
     getSocialLinks(setResponse);
@@ -59,11 +61,12 @@ export default function Footer() {
             <p>About</p>
             <Link to="/about-us">About Us</Link>
             <Link to="/contact-us">Contact Us</Link>
+            <Link to="/freelance#communityId">Contact Us</Link>
             <HashLink to="/freelance#communityId">FAQ&#39;s</HashLink>
-            <HashLink to="/book-an-event/64b2a2b85ca7d30d3d269dc4#communityId2">
-              {" "}
+
+            <Link to="/book-an-event/64b2a2b85ca7d30d3d269dc4#EventFaq/EventHome">
               Event FAQ&#39;s
-            </HashLink>
+            </Link>
           </div>
           <div className="footer-links-div">
             <p>Follow Us</p>

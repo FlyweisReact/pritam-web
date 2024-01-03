@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
 import HeroSection from "../../components/home/HeroSection";
 import Services from "../../components/home/Services";

@@ -28,14 +28,12 @@ export default function SideBar() {
   const [Freelancing, setFreelancing] = useState({});
   const [schoolForBartending, setSchoolForBartending] = useState({});
   const [logo, setLogo] = useState();
-
   const fetchLogo = async () => {
     const data = await axios.get(
       "https://pritam-backend.vercel.app/api/v1/admin/viewContactDetails"
     );
     setLogo(data.data.data);
   };
-
   const fetchAllPageContent = async () => {
     try {
       const response = await axios.get(
@@ -56,7 +54,6 @@ export default function SideBar() {
       });
     } catch (error) {}
   };
-  
   useEffect(() => {
     fetchAllPageContent();
     fetchLogo();

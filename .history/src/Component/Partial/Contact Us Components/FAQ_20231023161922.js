@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import { Accordion } from "react-bootstrap";
 import { get_faq } from "../../../Repo/Api";
 import axios from "axios";
-
-const FAQ = ({ type }) => {
+import { useParams } from "react-router-dom";
+const FAQ = ({type}) => {
   const [faq, setFaq] = useState([]);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -18,16 +18,15 @@ const FAQ = ({ type }) => {
       type = "Home";
     }
 
-    const response = await axios.get(
-      `https://pritam-backend.vercel.app/api/v1/static/faq/All/${type}`
-    );
+
+  const response=await axios.get(`https://pritam-backend.vercel.app/api/v1/static/faq/All/${type}`)
     const data = response.data;
-    setFaq(data.data);
+    setFaq(data.data)
     console.log(data);
-  };
+  }
   useEffect(() => {
-    getQuestionAndAns();
-  }, []);
+    getQuestionAndAns()
+  },[])
 
   return (
     <div className="contact-faq">
